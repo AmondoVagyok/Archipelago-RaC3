@@ -91,20 +91,11 @@ def set_rules_hard_location(world):
              lambda state: state.can_reach("Zeldrin Starport", player=world.player))
     add_rule(world.get_location("Phoenix: Received Infernox Armor"),
              lambda state: state.can_reach("Koros", player=world.player))
-    add_rule(world.get_location("Phoenix: Received Hacker"),
-             lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                           and state.has_all(["Hacker", "Hypershot"], player=world.player))
-    add_rule(world.get_location("Phoenix: Received Hypershot"),
-             lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                           and state.has_all(["Hacker", "Hypershot"], player=world.player))
     # "Phoenix: Meet Sasha on the Bridge": LocData(, "Starship Phoenix"),
     add_rule(world.get_location("Phoenix: Return after winning Grand Prize Bout"),
              lambda state: state.can_reach("Annihilation Nation", player=world.player))
     add_rule(world.get_location("Phoenix: Return after Aquatos Base"),
              lambda state: state.can_reach("Aquatos", player=world.player))
-    add_rule(world.get_location("Phoenix: VR Training after Noid Queen"),
-             lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                           and state.has_all(["Hacker", "Hypershot"], player=world.player))
     add_rule(world.get_location("Phoenix: Post Hideout Assault"),
              lambda state: state.can_reach("Qwarks Hideout", player=world.player)
                            and state.has_all(["Warp Pad", "Hypershot"], world.player))
@@ -129,9 +120,19 @@ def set_rules_hard_location(world):
              lambda state: state.has("Progressive VidComic", world.player, 5))
 
     # VR
-    add_rule(world.get_location("Phoenix: VR: VR Gadget Training"),
-             lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                           and state.has_all(["Hacker", "Hypershot"], player=world.player))
+    if world.options.vr_training.value == 1:
+        add_rule(world.get_location("Phoenix: VR Training after Noid Queen"),
+                 lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                               and state.has_all(["Hacker", "Hypershot"], player=world.player))
+        add_rule(world.get_location("Phoenix: VR: VR Gadget Training"),
+                lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                            and state.has_all(["Hacker", "Hypershot"], player=world.player))
+        add_rule(world.get_location("Phoenix: Received Hacker"),
+                lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                            and state.has_all(["Hacker", "Hypershot"], player=world.player))
+        add_rule(world.get_location("Phoenix: Received Hypershot"),
+                lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                            and state.has_all(["Hacker", "Hypershot"], player=world.player))
 
     # ----- Planet Marcadia -----#
     # "Marcadia: Received Spitting Hydra": LocData(50001030, "Marcadia"),
@@ -257,9 +258,6 @@ def set_rules_hard_location(world):
 
     if world.options.titanium_bolts.value == 1:
         # Phoenix
-        add_rule(world.get_location("Phoenix: T-Bolt: VR Gadget Training"),
-                 lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                               and state.has_all(["Hacker", "Hypershot"], player=world.player))
         add_rule(world.get_location("Phoenix: T-Bolt: VidComic 1 100%"),
                  lambda state: state.has("Progressive VidComic", world.player, 1))
         add_rule(world.get_location("Phoenix: T-Bolt: VidComic 2 100%"),
@@ -270,6 +268,12 @@ def set_rules_hard_location(world):
                  lambda state: state.has("Progressive VidComic", world.player, 4))
         add_rule(world.get_location("Phoenix: T-Bolt: VidComic 5 100%"),
                  lambda state: state.has("Progressive VidComic", world.player, 5))
+        # VR training related Titanium bolt
+        if world.options.vr_training.value == 1:
+            add_rule(world.get_location("Phoenix: T-Bolt: VR Gadget Training"),
+                    lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                                and state.has_all(["Hacker", "Hypershot"], player=world.player))
+
         # Marcadia
         add_rule(world.get_location("Marcadia: T-Bolt: Last Refractor Room"),
                  lambda state: state.has_all(["Refractor", "Gravity-Boots"], world.player))
@@ -327,9 +331,10 @@ def set_rules_hard_location(world):
     # ----- Simple Skill Points -----#
     if world.options.skill_points.value > 0:
         # Phoenix
-        add_rule(world.get_location("Phoenix: Skill Point: Beat Helga's Best VR Time"),
-                 lambda state: state.can_reach("Tyhrranosis", player=world.player)
-                               and state.has_all(["Hacker", "Hypershot"], player=world.player))
+        if world.options.vr_training.value == 1: #Needs VR training enabled to be added into the pool
+            add_rule(world.get_location("Phoenix: Skill Point: Beat Helga's Best VR Time"),
+                    lambda state: state.can_reach("Tyhrranosis", player=world.player)
+                                and state.has_all(["Hacker", "Hypershot"], player=world.player))
 
         # Marcadia
         add_rule(world.get_location("Marcadia: Skill Point: Reflect on how to score"),

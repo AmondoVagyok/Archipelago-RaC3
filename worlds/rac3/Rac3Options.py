@@ -142,6 +142,21 @@ class NanotechMilestones(Choice):
     option_all = 4
     default = 0
 
+class VRTraining(Choice):
+    """
+    Determines whether VR training missions and their associated checks are locations in the world.
+    If turned off and used with titanium bolts or skill points enabled this option also disables the following:
+    - T-Bolt: VR Nerves of Titanium
+    - T-Bolt: VR Gadget Training
+    - Skill Point: Beat Helga's Best VR Time
+    Disabled: No VR training missions and associated checks are locations.
+    Enabled: All VR training missions and associated checks are locations.
+    """
+    display_name = "VR Training"
+    options_disabled = 0
+    options_enabled = 1
+    default = 1
+
 
 @dataclass
 class RaC3Options(PerGameCommonOptions):
@@ -154,11 +169,12 @@ class RaC3Options(PerGameCommonOptions):
     trophies: Trophies
     titanium_bolts: TitaniumBolts
     nanotech_milestones: NanotechMilestones
+    vr_training: VRTraining
 
 
 rac3_option_groups: Dict[str, List[Any]] = {
     "General Options": [StartInventoryPool, StartingWeapons, BoltAndXPMultiplier, EnableProgressiveWeapons,
-                        ExtraArmorUpgrade, SkillPoints, Trophies, TitaniumBolts, NanotechMilestones]
+                        ExtraArmorUpgrade, SkillPoints, Trophies, TitaniumBolts, NanotechMilestones,VRTraining],
 }
 
 slot_data_options: list[str] = [
@@ -171,4 +187,5 @@ slot_data_options: list[str] = [
     "trophies",
     "titanium_bolts",
     "nanotech_milestones",
+    "vr_training",
 ]

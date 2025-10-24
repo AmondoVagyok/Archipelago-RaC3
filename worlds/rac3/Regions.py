@@ -246,6 +246,8 @@ def should_skip_location(key: str, options) -> bool:
             if every_20.lower() in key.lower():
                 return False
         return True
+    if "VR" or "Received Hacker" or "Received Hypershot" in key and options.vr_training.value == 0:
+        return True
 
 
     # Add more conditions here if needed in the future
