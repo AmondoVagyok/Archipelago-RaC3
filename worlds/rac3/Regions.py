@@ -9,7 +9,6 @@ if TYPE_CHECKING:
 # TODO: move to constants file once Myth is done with that
 SIMPLE_SKILL_POINTS = [
     "Stay squeaky clean",
-    "Beat Helga's Best VR Time",
     "Reflect on how to score",
     "Flee Flawlessly",
     "Lights, camera action!",
@@ -23,6 +22,23 @@ SIMPLE_SKILL_POINTS = [
     "Go for hang time",
     "You break it, you win it",
     "Break the Dan"
+]
+VR_TRAINING = [
+    "VR Training after Noid Queen",
+    "VR: VR Gadget Training",
+    "T-Bolt: VR Gadget Training",
+    "Skill Point: Beat Helga's Best VR Time",
+    "Received Hacker",
+    "Received Hypershot",
+    "VR: Warm Up",
+    "VR: Don't Look Down",
+    "VR: Speed Round",
+    "VR: Hot Stepper",
+    "VR: 90 Second Slayer",
+    "VR: The Shocker",
+    "VR: Wrench Beatdown",
+    "VR: Nerves of Titanium",
+    "T-Bolt: VR Nerves of Titanium"
 ]
 
 #Making an array with every 5 nanotech
@@ -216,6 +232,8 @@ def should_skip_location(key: str, options) -> bool:
         for simple_skill in SIMPLE_SKILL_POINTS:
             if simple_skill.lower() in key.lower():
                 return False
+        if "Helga's Best" in key and options.vr_training.value == 1:
+                return False
         return True
     
         # Skip titanium bolt locations if titanium bolt option is disabled
@@ -246,8 +264,13 @@ def should_skip_location(key: str, options) -> bool:
             if every_20.lower() in key.lower():
                 return False
         return True
-    if "VR" or "Received Hacker" or "Received Hypershot" in key and options.vr_training.value == 0:
-        return True
+
+        #Skips VR Training and associated locations if VR Training option is disabled
+    if options.vr_training.value == 0:
+        for training in VR_TRAINING:
+            if training.lower() in key.lower():
+                return True
+
 
 
     # Add more conditions here if needed in the future
