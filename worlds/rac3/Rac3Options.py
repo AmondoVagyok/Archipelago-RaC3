@@ -153,8 +153,8 @@ class VRTraining(Choice):
     Enabled: All VR training missions and associated checks are locations.
     """
     display_name = "VR Training"
-    options_disabled = 0
-    options_enabled = 1
+    option_disabled = 0
+    option_enabled = 1
     default = 1
 
 
