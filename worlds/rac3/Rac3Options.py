@@ -73,6 +73,7 @@ class ExtraArmorUpgrade(Choice):
 class SkillPoints(Choice):
     """
     Determines which skill points are locations in the world.
+    Dev note: Other settings used with these may disable select few skill points checks
     None: No skill points are locations.
     Simple: 15 simple skill points are locations. Still taking feedback on the selection:
     - Stay Squeaky Clean
@@ -101,6 +102,7 @@ class SkillPoints(Choice):
 class Trophies(Choice):
     """
     Determines which trophies are locations in the world.
+    Dev note: Other settings used with these may disable select few trophies checks
     None: No trophies are locations.
     Collectables: Only the collectable trophies found on various planets are locations.
     Every Trophy: All special trophies that do not require NG+ are now also locations.
@@ -114,6 +116,7 @@ class Trophies(Choice):
 class TitaniumBolts(Choice):
     """
     Determines whether titanium bolts are locations in the world.
+    Dev note: Other settings used with these may disable select few titanium bolts as checks
     Disabled: No titanium bolts are locations.
     Enabled: All titanium bolts are locations.
     """
